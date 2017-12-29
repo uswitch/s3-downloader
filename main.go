@@ -16,6 +16,7 @@ import (
 
 var (
 	endpointUrl = kingpin.Flag("endpoint-url", "Endpoint URL to connect to S3").Default("").String()
+	region = kingpin.Flag("region", "Region to connect to").Default("eu-west-1").String()
 	objects = kingpin.Arg("objects", "Format: s3://<bucket>/<path>:<path>(?:<mode>)").Required().Strings()
 )
 
@@ -24,6 +25,7 @@ func main() {
 
 	sess := session.Must(session.NewSession(&aws.Config{
 		Endpoint: endpointUrl,
+		Region: region,
 	}))
 
 	s3client := s3.New(sess)
