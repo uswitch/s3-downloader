@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"net/url"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 
@@ -68,6 +69,10 @@ func main() {
 		defer response.Body.Close()
 
 		if err != nil {
+			panic(err)
+		}
+
+		if err = os.MkdirAll(filepath.Dir(outPath), os.FileMode(0755)); err != nil {
 			panic(err)
 		}
 
